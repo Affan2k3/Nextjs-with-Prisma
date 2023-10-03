@@ -1,0 +1,50 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  username  String   @unique
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model ItemCategory {
+  catId    Int          @id @default(autoincrement())
+  items    ItemMaster[]
+  catTitle String
+}
+
+model ItemMaster {
+  itemid         Int          @id @default(autoincrement())
+  itemTitle      String
+  itemCategory   ItemCategory @relation(fields: [itemCategoryId], references: [catId])
+  itemCategoryId Int
+}
+
+// //////////////////////////////////
+// //////   SERVICE 
+// //////////////////////////////////
+
+model ServiceCategory {
+  ServiceId     Int             @id @default(autoincrement())
+  ServiceMaster ServiceMaster[]
+  ServiceTitle  String
+}
+
+model ServiceMaster {
+  Serviceid         Int             @id @default(autoincrement())
+  ServiceTitle      String
+  ServiceCategory   ServiceCategory @relation(fields: [ServiceCategoryId], references: [ServiceId])
+  ServiceCategoryId Int
+}
