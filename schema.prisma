@@ -10,8 +10,12 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// ///////////////////////////////////////////////////
+//             User 
+// ////////////////////////////////////////////////////////
+
 model User {
-  id        Int      @id @default(autoincrement())
+  id        Int      @id @unique @default(autoincrement())
   email     String   @unique
   username  String   @unique
   password  String
@@ -20,31 +24,58 @@ model User {
 }
 
 model ItemCategory {
-  catId    Int          @id @default(autoincrement())
+  catId    Int          @id @unique @default(autoincrement())
   items    ItemMaster[]
   catTitle String
 }
 
 model ItemMaster {
-  itemid         Int          @id @default(autoincrement())
+  itemid         Int          @id @unique @default(autoincrement())
   itemTitle      String
   itemCategory   ItemCategory @relation(fields: [itemCategoryId], references: [catId])
   itemCategoryId Int
+  ItemUom        ItemUOM      @relation(fields: [ItemUomId], references: [ItemUomId])
+  ItemUomId      Int          @default(0)
 }
 
-// //////////////////////////////////
-// //////   SERVICE 
-// //////////////////////////////////
+model ItemUOM {
+  ItemUomId    Int          @id @unique @default(autoincrement())
+  ItemUomTitle String
+  ItemMaster   ItemMaster[]
+}
+
+// ///////////////////////////////////////////////////
+//             SERVICE 
+// ////////////////////////////////////////////////////////
 
 model ServiceCategory {
-  ServiceId     Int             @id @default(autoincrement())
+  ServiceId     Int             @id @unique @default(autoincrement())
   ServiceMaster ServiceMaster[]
   ServiceTitle  String
 }
 
 model ServiceMaster {
-  Serviceid         Int             @id @default(autoincrement())
+  Serviceid         Int             @id @unique @default(autoincrement())
   ServiceTitle      String
   ServiceCategory   ServiceCategory @relation(fields: [ServiceCategoryId], references: [ServiceId])
   ServiceCategoryId Int
+}
+
+// ///////////////////////////////////////////////////////////
+//             FOR VEHICLE
+// //////////////////////////////////////////////////////////
+
+model VehicleMake {
+  VehicleMakeId    Int             @id @unique @default(autoincrement())
+  vehicleMakeTitle String
+  VehicleMaster    VehicleMaster[]
+}
+
+model VehicleMaster {
+  VehicleId        Int         @id @unique @default(autoincrement())
+  VehicleRegNo     Int
+  VehicleChechisNo String
+  VehicleEngineNo  String
+  VehicleMakeId    VehicleMake @relation(fields: [VehicleMake], references: [VehicleMakeId])
+  VehicleMake      Int
 }
