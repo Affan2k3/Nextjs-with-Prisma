@@ -72,10 +72,32 @@ model VehicleMake {
 }
 
 model VehicleMaster {
-  VehicleId        Int         @id @unique @default(autoincrement())
-  VehicleRegNo     Int
-  VehicleChechisNo String
-  VehicleEngineNo  String
-  VehicleMakeId    VehicleMake @relation(fields: [VehicleMake], references: [VehicleMakeId])
-  VehicleMake      Int
+  VehicleId         Int               @id @unique @default(autoincrement())
+  VehicleRegNo      Int
+  VehicleChechisNo  String
+  VehicleEngineNo   String
+  VehicleMakeId     VehicleMake       @relation(fields: [VehicleMake], references: [VehicleMakeId])
+  VehicleMake       Int
+  VehicleCustomer   Customer          @relation(fields: [VehicleCustomerId], references: [CustomerId])
+  VehicleCustomerId Int
+  CustomerVehicle   CustomerVehicle[]
+}
+
+model Customer {
+  CustomerId                       Int             @id @unique @default(autoincrement())
+  CustomerTitle                    String
+  CustomerPhoneNo                  Int
+  CustomerMobileNo                 Int
+  CustomerAddress                  String
+  CustomerEmail                    String
+  CustomerSecondNumber             Int
+  IsActive                         Boolean
+  VehicleMaster                    VehicleMaster[]
+  customerVehicleCustomerVehicleId Int?
+}
+
+model CustomerVehicle {
+  CustomerVehicleId Int           @id @unique @default(autoincrement())
+  Vehicle           VehicleMaster @relation(fields: [VehicleId], references: [VehicleId])
+  VehicleId         Int // Added VehicleId
 }
