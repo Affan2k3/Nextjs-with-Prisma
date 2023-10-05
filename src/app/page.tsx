@@ -24,6 +24,49 @@ import SignUpForm from "./components/signInForm";
 //     revalidate: 10,
 //   };
 // };
+import { PrismaClient } from "@prisma/client";
+
+const prisma = new PrismaClient();
+
+async function fetchData() {
+  try {
+    const itemCategories = await prisma.vehicleMaster.findMany({
+      include: {
+        CustomerVehicle: true, // Include related items
+      },
+    });
+    // ////////////////////////////////////////////////////////
+    // .//////////////////////////////////////////////////
+    // //////////////////////////////
+
+    // /////////////////      FOR POSTING DATA
+
+    // const itemCategories = await prisma.itemCategory.create({
+    //   data: {
+    //     catTitle: "hi",
+    //   },
+    // });
+
+    // /////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////
+
+    return itemCategories;
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    throw error;
+  } finally {
+    await prisma.$disconnect();
+  }
+}
+
+// Call the fetchData function to retrieve data
+fetchData()
+  .then((data) => {
+    console.log("Fetched data:", data);
+  })
+  .catch((error) => {
+    console.error("Error:", error);
+  });
 export default async function Home() {
   // try {
   //   const data = await getPost();
