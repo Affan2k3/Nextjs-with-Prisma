@@ -1,5 +1,7 @@
 "use client";
 import React, { useState } from "react";
+import check2 from "./check2";
+import Check2 from "./check2";
 export default function Get() {
   const [dataToReturn, setDataToReturn] = useState([] as any);
   const handleSubmit = async () => {
@@ -18,7 +20,7 @@ export default function Get() {
       let data = await response.json();
       if (response.ok) {
         // Handle success, e.g., show a success message
-        console.log(data, "ItemMaster created successfully");
+        // console.log(data, "ItemMaster created successfully");
         setDataToReturn(data.itemCategories);
       } else {
         // Handle errors, e.g., show an error message
@@ -33,11 +35,7 @@ export default function Get() {
     <div className="mt-32">
       <button onClick={handleSubmit}>CLICKKKK</button>
       {dataToReturn.map((item: any) => (
-        <div>
-          <h1>{item.itemTitle}</h1>
-          <h1>{item.itemCategories}</h1>
-          <h1>{item.ItemUomId}</h1>
-        </div>
+        <Check2 item={...item} />
       ))}
     </div>
   );
