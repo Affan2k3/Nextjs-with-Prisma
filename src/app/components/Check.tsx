@@ -72,7 +72,7 @@ export default function Check() {
           />
         </label>
         <br />
-        {/* <button type="submit">Create ItemMaster</button> */}
+        <button type="submit">Create ItemMaster</button>
       </form>
     </div>
   );

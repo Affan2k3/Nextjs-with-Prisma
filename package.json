@@ -12,10 +12,10 @@
     "@next-auth/prisma-adapter": "^0.4.4-canary.81",
     "@prisma/client": "^5.3.1",
     "next": "latest",
+    "pnpm": "^8.8.0",
     "react": "latest",
     "react-dom": "latest",
-    "react-hook-form": "^7.47.0",
-    "zod": "link:@hookform/resolvers/zod"
+    "react-hook-form": "^7.47.0"
   },
   "devDependencies": {
     "@types/node": "latest",

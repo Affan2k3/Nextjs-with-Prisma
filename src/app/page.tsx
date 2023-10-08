@@ -7,8 +7,8 @@ import Get from "./components/Get";
 export default async function Home() {
   return (
     <div>
-      <Check />
-      <Get />
+      {/* <Check />
+      <Get /> */}
     </div>
   );
 }

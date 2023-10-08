@@ -2,6 +2,7 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { useEffect } from "react";
+import SideBar from "./components/SideBar";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,6 +17,7 @@ export default function RootLayout({
         {/* <button onClick={insertNewItemCategory} className="bg-white">
           HHHHH
         </button> */}
+        <SideBar />
         {children}
       </body>
     </html>
